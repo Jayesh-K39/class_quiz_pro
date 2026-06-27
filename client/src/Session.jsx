@@ -139,7 +139,7 @@ function Session(){
 				))}
 			</div>
 
-		{onlineCount > 1 && status==='revealed' && <LeaderBoard students={students} answers={answers} correctOption={correctOption}
+		{onlineCount > 0 && status==='revealed' && <LeaderBoard students={students} answers={answers} correctOption={correctOption}
 		onlineCount={onlineCount}/>}
 		</div>
 	)
