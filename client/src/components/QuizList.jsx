@@ -41,7 +41,8 @@ function QuizList({onSelect}){
 	}
 
 	async function edit(id){
-		const update = await prompt('Enter the updated title for the quiz here: ')
+		const quiz = quizzes.find(q => q.id === id)
+		const update = await prompt('Enter the updated title for the quiz here: ', quiz.title)
 		if(!update)return;
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/quizzes/${id}`,{
 			method:'PUT',

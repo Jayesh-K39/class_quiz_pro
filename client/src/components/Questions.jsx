@@ -2,8 +2,10 @@ import {useState, useEffect} from 'react'
 import DeleteIcon from '../icons/delIcon'
 import BackIcon from '../icons/BackIcon'
 import EditIcon from '../icons/EditIcon'
+import {useModal} from '../wrappers/ModalProvider'
 
 function Questions({quiz, onBack}){
+	const {confirm, prompt} = useModal()
 	const [form, setForm] = useState({question_text:'',option_a:'',option_b:'',option_c:'',option_d:'',correct_option:'A'})
 	const [questions, setQuestions] = useState([])
 	const [show, setShow] = useState(false)
@@ -38,7 +40,7 @@ function Questions({quiz, onBack}){
 	}
 
 	async function deleteQuestion(id, title){
-		const confirmation = confirm(`Are you sure you want to delete this question: '${title}' ?`)
+		const confirmation = await confirm(`Are you sure you want to delete this question: '${title}' ?`)
 		if(!confirmation)return;
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/questions/${id}`, {
 			method:'DELETE',
@@ -49,7 +51,8 @@ function Questions({quiz, onBack}){
 	}
 
 	async function editQuestion(id){
-		const update = prompt('Enter the updated question here: ')
+		const question = questions.find(q => q.id === id)
+		const update = await prompt('Enter the updated question here: ', question.question_text)
 		if(!update?.trim())return
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/questions/${id}`, {
 			method:'PUT',
