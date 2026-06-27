@@ -1,10 +1,12 @@
 import {useNavigate} from 'react-router-dom'
 import {socket} from '../socket.js'
+import {useModal} from '../wrappers/ModalProvider'
 
 function Waiting(){
+	const {confirm, prompt} = useModal()
 	const navigate = useNavigate()
-	const end = () =>{
-		const confirmation = confirm('Are you sure you want to leave the quiz?')
+	async function leave(){
+		const confirmation = await confirm('Are you sure you want to leave the quiz?')
 		if(!confirmation)return;
 		socket.disconnect()
 		sessionStorage.clear()
@@ -17,7 +19,7 @@ function Waiting(){
 			<div className='text-center font-bold text-white text-[2rem] w-[90vw] p-3 max-w-lg rounded-md '>
 				Waiting for the quiz to start...
 			</div>
-			<button onClick={end} className={`bg-red-500 text-white font-bold cursor-pointer p-3 rounded-lg text-[1.5rem] hover:bg-red-600`}>Leave Quiz</button>
+			<button onClick={leave} className={`bg-red-500 text-white font-bold cursor-pointer p-3 rounded-lg text-[1.5rem] hover:bg-red-600`}>Leave Quiz</button>
 		</div>
 	)
 }

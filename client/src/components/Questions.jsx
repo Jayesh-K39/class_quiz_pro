@@ -52,7 +52,7 @@ function Questions({quiz, onBack}){
 
 	async function editQuestion(id){
 		const question = questions.find(q => q.id === id)
-		const update = await prompt('Enter the updated question here: ', question.question_text)
+		const update = await prompt('Enter the updated question title here: ', question.question_text)
 		if(!update?.trim())return
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/questions/${id}`, {
 			method:'PUT',

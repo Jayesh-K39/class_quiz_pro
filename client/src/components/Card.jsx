@@ -2,12 +2,14 @@ import {socket} from '../socket.js'
 import {useNavigate} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import Tick from '../icons/Tick'
+import {useModal} from '../wrappers/ModalProvider'
 import Cross from '../icons/Cross'
 
 function Card({question, endsAt, status, selectedAnswer, score}){
 
 //States: ----------------------------------------------------
 	const navigate = useNavigate()
+	const {confirm, prompt} = useModal()
 	const [confirmed, setConfirmed] = useState(false)
 	const [message, setMessage] = useState('')
 	const [selected, setSelected] = useState(null)
@@ -61,8 +63,8 @@ function Card({question, endsAt, status, selectedAnswer, score}){
 
 
 //Functions: ----------------------------------------------------
-	function Leave(){
-		const confirmation = confirm('Are you sure you want to leave the quiz? ')
+	async function Leave(){
+		const confirmation = await confirm('Are you sure you want to leave the quiz? ')
 		if(!confirmation)return;
 		socket.disconnect()
 		sessionStorage.clear()

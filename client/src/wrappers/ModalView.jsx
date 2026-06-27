@@ -5,10 +5,10 @@ function ModalView({ modal, onClose }) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="bg-white rounded-xl p-6 flex flex-col gap-3 w-[80vw] max-w-md">
-        <p>{modal.message}</p>
+        <p className='font-bold'>{modal.message}</p>
         {modal.type === 'prompt' && (
           <input className='outline-none border-b border-b-blue-500'
-          name='timeInput'
+          name='promptInput'
           value={value} onChange={(e) => setValue(e.target.value)} autoFocus 
           onKeyDown={e=>{
           	if(e.key === 'Enter'){

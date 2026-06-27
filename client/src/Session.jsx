@@ -4,10 +4,12 @@ import {socket} from './socket.js'
 import LeaderBoard from './components/LeaderBoard'
 import Start from './icons/StartIcon'
 import Stop from './icons/StopIcon'
+import {useModal} from './wrappers/ModalProvider'
 import {toast} from 'react-hot-toast'
 
 function Session(){
 	const navigate = useNavigate()
+	const {confirm, prompt} = useModal()
 	const [questions, setQuestions] = useState([])
 	const [students, setStudents] = useState({})
 	const [activeQuestionId, setActiveQuestionId] = useState(null)
@@ -67,8 +69,8 @@ function Session(){
 		}
 	}, [])
 
-	const end = () =>{
-		const confirmation = confirm('Are you sure you want to end the quiz? This action cannot be undone')
+	async function end(){
+		const confirmation = await confirm('Are you sure you want to end the quiz? This action cannot be undone')
 		if(!confirmation)return;
 		const roomCode = sessionStorage.getItem('roomCode')
 		if(!roomCode)return;
