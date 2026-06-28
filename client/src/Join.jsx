@@ -18,7 +18,7 @@ function Join(){
 	}, [])
 
 	const bodyStyle = `min-h-screen bg-[#ca38cf] flex flex-col items-center justify-center gap-4`
-	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 w-[90vw] max-w-md`
+	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 w-[90vw] max-w-lg`
 	const inputStyle = ` outline-none p-3 h-1/5 flex-1`
 	const btnStyle = `w-full bg-green-500 hover:bg-green-600 rounded-lg p-3 cursor-pointer`
 	const [name,setName] = useState('')

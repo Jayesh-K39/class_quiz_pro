@@ -9,7 +9,7 @@ function Home(){
 
 
 	const bodyStyle = `min-h-screen bg-[#ca38cf] flex justify-center items-center`
-	const card = `bg-white flex flex-col gap-2 rounded-xl p-6 w-[90vw] max-w-md`
+	const card = `bg-white flex flex-col gap-2 rounded-xl p-6 w-[90vw] max-w-lg`
 
 	const divStyle = `w-full p-3 rounded-md text-center text-white font-bold cursor-pointer `
 	return(

@@ -18,7 +18,7 @@ function Register(){
 	const bodyStyle = `min-h-screen flex justify-center items-center 
 	bg-[#ca38cf]`
 	const inputStyle = `p-3 outline-none border-b border-b-blue-500 flex-1`
-	const card = `bg-white flex flex-col gap-4 w-[90vw] max-w-md rounded-xl p-6`
+	const card = `bg-white flex flex-col gap-4 w-[90vw] max-w-xl rounded-xl p-6`
 	const divStyle = `flex items-center`
 	const btnStyle = `w-full bg-green-500 p-3 rounded-lg cursor-pointer`
 
