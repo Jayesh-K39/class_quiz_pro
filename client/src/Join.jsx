@@ -24,7 +24,6 @@ function Join(){
 
 	function joinRoom(e){
 		e.preventDefault()
-		setError('')
 		socket.connect()
 		socket.once('connect_error', (err)=>{
 			console.log(err.message)
