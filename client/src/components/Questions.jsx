@@ -93,9 +93,15 @@ function Questions({quiz, onBack}){
 			  <div className='fixed inset-0 bg-black/50 flex items-center justify-center'>
 	  		    <form className='bg-white rounded-xl p-6 w-[90vw] max-w-lg flex flex-col gap-3 relative' 
 	  		    onSubmit={async (e)=>await addQuestion(e)}>
-	  		    	<button onClick={()=>setShow(false)} className='absolute left-5 cursor-pointer'> <BackIcon/> </button>
+	  		    	<button onClick={()=>setShow(false)} className='absolute left-5 cursor-pointer' type='button'> 
+	  		    		<BackIcon/> 
+	  		    	</button>
+
+
 			    	<div className='text-center font-bold'>Adding a new question</div>
+
 			    	<input value={form.question_text} name='question_text' className={Input} placeholder='Enter question text here'required onChange={handler}/>
+
 			    	<input value={form.option_a} name='option_a' className={Input} placeholder='Enter option A' required 
 			    	onChange={handler}/>
 
