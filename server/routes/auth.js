@@ -48,5 +48,15 @@ router.post('/register', async (request, response)=>{
 })
 
 router.get('/verify', verifier, (request, response)=>response.sendStatus(200))
+router.get('/health', async (request, response)=>{
+	try{
+		await pool.query('select 1')
+		response.status(200).json({status:'OK'})
+	}
+	catch{
+		response.status(500).json({status:'Inactive'})
+	}
+})
+
 
 export default router
