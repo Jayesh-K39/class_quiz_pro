@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-hot-toast'
 
 function Login(){
 	const navigate = useNavigate()
@@ -14,8 +15,6 @@ function Login(){
 	const inputStyle = `w-full outline-none p-3 h-1/5`
 
 	const btnStyle = `w-full bg-green-500 hover:bg-green-600 rounded-lg p-3 cursor-pointer`
-	const [error, setError] = useState('')
-
 	const [email,setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	
@@ -29,12 +28,12 @@ function Login(){
 				body:JSON.stringify({email, password})
 			})
 			const data = await response.json()
-			if(data.error){setError(data.error);return}
+			if(data.error){toast.error(data.error);return}
 			localStorage.setItem('token', data.token)
 			navigate('/controlroom', {replace:true})
 		}
 		catch{
-			setError("Server Error.Please Stand By...")
+			toast.error("Server Error.Please Stand By...")
 		}
 	}
 	return(
@@ -67,7 +66,6 @@ function Login(){
 				<button type='submit' className={btnStyle}>Enter</button>
 			</form>
 
-			<div className='text-white font-bold'>{error}</div>
 		</div>
 	)
 }

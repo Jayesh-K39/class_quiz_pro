@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {socket} from './socket.js'
+import {toast} from 'react-hot-toast'
 
 function Join(){
 	const navigate = useNavigate()
@@ -18,7 +19,6 @@ function Join(){
 	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 w-[90vw] max-w-md`
 	const inputStyle = `w-full outline-none p-3 h-1/5`
 	const btnStyle = `w-full bg-green-500 hover:bg-green-600 rounded-lg p-3 cursor-pointer`
-	const [error, setError] = useState('')
 	const [name,setName] = useState('')
 	const [roomCode, setCode] = useState('')
 
@@ -28,11 +28,11 @@ function Join(){
 		socket.connect()
 		socket.once('connect_error', (err)=>{
 			console.log(err.message)
-			setError("Server Error. Please standby...")
+			toast.error('Server Error. Please standby...')
 		})
 		socket.once('session_not_found', ()=>{
 			socket.disconnect()
-			setError(`No active session found with room code ${roomCode}`)
+			toast.error(`No active session found with room code ${roomCode}`)
 		})
 
 		socket.once('join_success', (data)=>{
@@ -74,7 +74,6 @@ function Join(){
 				<button type='submit' className={btnStyle}>Join</button>
 		</form>
 	
-		<div className='text-white font-bold'>{error}</div>
 	</div>
 	)
 }
