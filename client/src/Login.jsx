@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-hot-toast'
+import EyeIcon from './icons/Eye'
+import EyeSlash from './icons/EyeSlash'
 
 function Login(){
 	const navigate = useNavigate()
@@ -12,11 +14,12 @@ function Login(){
 	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 
 	w-[90vw] max-w-md`
 
-	const inputStyle = `w-full outline-none p-3 h-1/5`
+	const inputStyle = `outline-none p-3 h-1/5 flex-1`
 
 	const btnStyle = `w-full bg-green-500 hover:bg-green-600 rounded-lg p-3 cursor-pointer`
 	const [email,setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [show, setShow] = useState(false)
 	
 	async function login(e){
 		e.preventDefault()
@@ -46,7 +49,7 @@ function Login(){
 				<input name='email'
 				value={email} 
 				type='email' 
-				autoComplete='on' 
+				autoComplete='email' 
 				required
 				onChange={e=>setEmail(e.target.value)}
 				placeholder='Enter your e-mail ID here: ' 
@@ -54,14 +57,22 @@ function Login(){
 				/>
 
 
-				<input name='password' 
-				value={password}
-				type='password'
-				required
-				onChange={e=>setPassword(e.target.value)}
-				placeholder='Enter the password for this app: '
-				className={inputStyle} 
-				/>
+				<div className='flex items-center'>
+					<input name='password' 
+					value={password}
+					type={show ? 'text' : 'password'}
+					autoComplete='current-password'
+					required
+					onChange={e=>setPassword(e.target.value)}
+					placeholder='Enter the password for this app: '
+					className={inputStyle} 
+					/>
+
+					<button type='button' className='cursor-pointer p-2' onClick={()=>setShow(s => !s)}>
+						{password ? show ? <EyeIcon/> : <EyeSlash/> : null}
+					</button>
+					
+				</div>
 
 				<button type='submit' className={btnStyle}>Enter</button>
 			</form>

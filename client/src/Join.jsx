@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {socket} from './socket.js'
 import {toast} from 'react-hot-toast'
+import EyeIcon from './icons/Eye'
+import EyeSlash from './icons/EyeSlash'
 
 function Join(){
 	const navigate = useNavigate()
@@ -17,10 +19,11 @@ function Join(){
 
 	const bodyStyle = `min-h-screen bg-[#ca38cf] flex flex-col items-center justify-center gap-4`
 	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 w-[90vw] max-w-md`
-	const inputStyle = `w-full outline-none p-3 h-1/5`
+	const inputStyle = ` outline-none p-3 h-1/5 flex-1`
 	const btnStyle = `w-full bg-green-500 hover:bg-green-600 rounded-lg p-3 cursor-pointer`
 	const [name,setName] = useState('')
 	const [roomCode, setCode] = useState('')
+	const [show, setShow] = useState(false)
 
 	function joinRoom(e){
 		e.preventDefault()
@@ -53,23 +56,30 @@ function Join(){
 				<input name='email'
 				type='text'
 				value={name} 
-				autoComplete='on' 
+				autoComplete='email' 
 				required
 				onChange={e=>setName(e.target.value)}
 				placeholder='Enter your name here: ' 
 				className={inputStyle} 
 				/>
 	
-	
-				<input name='roomcode' 
-				value={roomCode}
-				type='password'
-				required
-				onChange={e=>setCode(e.target.value)}
-				placeholder='Enter a valid room code: '
-				className={inputStyle} 
-				/>
 
+				<div className='flex items-center'>
+					<input name='roomcode' 
+					value={roomCode}
+					type={show ? 'text': 'password'}
+					autoComplete='current-password'
+					required
+					onChange={e=>setCode(e.target.value)}
+					placeholder='Enter a valid room code: '
+					className={inputStyle} 
+					/>
+
+					<button type='button' className='p-2 cursor-pointer' onClick={()=>setShow(s => !s)}>
+						{roomCode ? show ? <EyeSlash/> : <EyeIcon/> : null}
+					</button>
+				</div>
+		
 				<button type='submit' className={btnStyle}>Join</button>
 		</form>
 	
