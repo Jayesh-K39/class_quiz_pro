@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-hot-toast'
 
 function Register(){
 	const navigate = useNavigate()
@@ -21,14 +22,14 @@ function Register(){
 		const cleanedPassword = password.trim()
 		const cleanedConfirm = confirmPassword.trim()
 		const cleanedEmail = email.trim().toLowerCase()
-		if(cleanedPassword !== cleanedConfirm)return;
+		if(cleanedPassword !== cleanedConfirm)return toast.error('Passwords do not match');
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/register`,{
 			method:'POST',
 			headers:{'Content-Type':'application/json'},
 			body:JSON.stringify({email:cleanedEmail, password:cleanedPassword})
 		})
 		const data = await response.json()
-		if(data.error){console.log(data.error);return;}
+		if(data.error){toast.error(data.error);return;}
 		navigate('/login', {replace:true})
 	}
 	return(
