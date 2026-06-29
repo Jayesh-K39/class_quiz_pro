@@ -14,7 +14,7 @@ function Waiting(){
 	}
 
 	return(
-		<div className='bg-[#ca38cf] min-h-screen p-6 flex flex-col gap-4 
+		<div className='bg-[#4c1d95] min-h-screen p-6 flex flex-col gap-4 
 		items-center justify-center'>
 			<div className='text-center font-bold text-white text-[2rem] w-[90vw] p-3 max-w-lg rounded-md '>
 				Waiting for the quiz to start...

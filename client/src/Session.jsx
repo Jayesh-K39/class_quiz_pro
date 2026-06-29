@@ -92,7 +92,7 @@ function Session(){
 		socket.emit('stop_question', {roomCode, qid:Number(qid)})
 	}
 
-	const bodyStyle = `min-h-screen bg-[#ca38cf] p-6 flex flex-col`
+	const bodyStyle = `min-h-screen bg-[#4c1d95] p-6 flex flex-col`
 	const holder = `w-[90vw] max-w-2xl flex flex-col gap-2 p-6 bg-white mx-auto my-4 rounded-md`
 	const upperDiv = `w-[90vw] max-w-2xl flex flex-col self-center justify-center sm:flex-row items-center gap-3 p-3`
 	const btnStyle = `rounded-md bg-red-500 text-white cursor-pointer hover:bg-red-600 p-3 font-bold` 

@@ -9,7 +9,7 @@ function ControlRoom(){
 	const {confirm, prompt} = useModal()
 	const navigate = useNavigate()
 	const [selectedQuiz, setSelectedQuiz] = useState(null)
-	const bodyStyle = `min-h-screen bg-[#ca38cf] flex flex-col justify-center items-center relative`
+	const bodyStyle = `min-h-screen bg-[#4c1d95] flex flex-col justify-center items-center relative`
 	const btnStyle = `p-1 font-bold absolute top-2 right-2 cursor-pointer rounded-md z-999 bg-gray-200`
 
 	useEffect(()=>{

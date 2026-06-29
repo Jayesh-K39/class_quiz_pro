@@ -17,7 +17,7 @@ function Join(){
 		document.title = 'Class Quiz Pro | Student Joining'
 	}, [])
 
-	const bodyStyle = `min-h-screen bg-[#ca38cf] flex flex-col items-center justify-center gap-4`
+	const bodyStyle = `min-h-screen bg-[#4c1d95] flex flex-col items-center justify-center gap-4`
 	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 w-[90vw] max-w-lg`
 	const inputStyle = ` outline-none p-3 h-1/5 flex-1`
 	const btnStyle = `w-full bg-green-500 hover:bg-green-600 rounded-lg p-3 cursor-pointer`
@@ -76,7 +76,7 @@ function Join(){
 					/>
 
 					<button type='button' className='p-2 cursor-pointer' onClick={()=>setShow(s => !s)}>
-						{roomCode ? show ? <EyeSlash/> : <EyeIcon/> : null}
+						{roomCode ? show ? <EyeIcon/> : <EyeSlash/> : null}
 					</button>
 				</div>
 		

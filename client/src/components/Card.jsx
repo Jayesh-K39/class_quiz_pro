@@ -89,12 +89,12 @@ function Card({question, endsAt, status, selectedAnswer, score}){
 	}
 
 //Styles: ----------------------------------------------------
-	const bodyStyle = `min-h-screen bg-[#ca38cf] p-6 flex flex-col `
+	const bodyStyle = `min-h-screen bg-[#4c1d95] p-6 flex flex-col `
+	const questionBox = `rounded-md bg-[#4c1d95] p-3 w-full text-center text-white font-bold`
 	const card = `bg-white rounded-md p-3 w-[80vw] max-w-sm flex flex-col gap-2 mx-auto my-4`
 	const upperDiv = `text-center w-[80vw] max-w-sm flex flex-col sm:flex-row justify-center sm:items-center self-center gap-3 p-3`
 	const optionDiv = `border rounded-md p-3 `
 	const btnStyle = `cursor-pointer bg-red-500 p-3 rounded-md hover:bg-red-600 font-bold text-white`	 
-	const questionBox = `rounded-md bg-[#ca38cf] p-3 w-full text-center text-white font-bold`
 	const helper = `w-[80vw] max-w-sm p-3 rounded-md block mx-auto`
 	const options = ['A', 'B', 'C', 'D']
 
@@ -114,10 +114,10 @@ function Card({question, endsAt, status, selectedAnswer, score}){
 
 				{options.map(option=>(
 					<div key={option} className={`${optionDiv}
-						${selected === option ? 'bg-blue-300' : null}
+						${selected === option ? 'bg-blue-300' : ''}
 						${confirmed || status === 'revealed' ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}
-						${status === 'revealed' && question.correct_option===option ? 'bg-green-300 opacity-100' : null}
-						${status === 'revealed' && selectedAnswer === option && question.correct_option!==option? 'bg-red-300 opacity-100' : null}`}
+						${status === 'revealed' && question.correct_option===option ? 'bg-green-300 opacity-100' : ''}
+						${status === 'revealed' && selectedAnswer === option && question.correct_option!==option? 'bg-red-300 opacity-100' : ''}`}
 						onClick={()=>choose(option)}>
 							{ question[`option_${option.toLowerCase()}`] } 
 					</div>

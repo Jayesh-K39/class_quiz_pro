@@ -14,19 +14,19 @@ function LeaderBoard({students,answers, correctOption, onlineCount}){
 			<div className='grid grid-cols-3 gap-3 mb-4'>
 				<div className='flex flex-col items-center justify-center bg-green-300 rounded-md'>
 					<div><Tick/></div>
-					<div>{correctCount}</div>
+					<div className='font-bold'>{correctCount}</div>
 					<div>Correct</div>
 				</div>
 
 				<div className='flex flex-col items-center justify-center bg-red-300 rounded-md'>
 					<div><Cross/></div>
-					<div>{wrongCount}</div>
+					<div className='font-bold'>{wrongCount}</div>
 					<div>Wrong</div>
 				</div>
 
 				<div className='flex flex-col items-center justify-center bg-gray-200 rounded-md'>
 					<div><MinusIcon/></div>
-					<div>{unansweredCount}</div>
+					<div className='font-bold'>{unansweredCount}</div>
 					<div>No Answer</div>
 				</div>
 			</div>

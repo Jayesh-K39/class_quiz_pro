@@ -15,8 +15,7 @@ function Register(){
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirm] = useState('')
 	const [email, setEmail] = useState('') 
-	const bodyStyle = `min-h-screen flex justify-center items-center 
-	bg-[#ca38cf]`
+	const bodyStyle = `min-h-screen flex justify-center items-center bg-[#4c1d95]`
 	const inputStyle = `p-3 outline-none border-b border-b-blue-500 flex-1`
 	const card = `bg-white flex flex-col gap-4 w-[90vw] max-w-xl rounded-xl p-6`
 	const divStyle = `flex items-center`

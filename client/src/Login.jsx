@@ -10,7 +10,7 @@ function Login(){
 		document.title = 'Class Quiz Pro | Teacher Login'
 	}, [])
 
-	const bodyStyle = `min-h-screen bg-[#ca38cf] flex flex-col items-center justify-center gap-4`
+	const bodyStyle = `min-h-screen bg-[#4c1d95] flex flex-col items-center justify-center gap-4`
 	const holderStyle = `bg-white flex flex-col gap-4 rounded-xl p-6 
 	w-[90vw] max-w-lg`
 
