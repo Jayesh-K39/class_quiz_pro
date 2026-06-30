@@ -8,6 +8,7 @@ function verifier(request, response, next){
 	try{
 		const decoded_payload = jwt.verify(token, process.env.JWT_SECRET)
 		request.teacher = decoded_payload
+		// console.log(request.teacher.email)
 		next()
 	}
 	catch{response.sendStatus(401)}

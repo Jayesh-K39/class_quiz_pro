@@ -11,10 +11,10 @@ function QuizList({onSelect}){
 	const {confirm, prompt} = useModal()
 	const navigate = useNavigate()
 	const [quizzes, setQuizzes] = useState([])
-	const holder = `flex flex-col gap-2 w-[90vw] max-w-lg rounded-md bg-white p-6`
+	const holder = `flex flex-col gap-2 w-[90vw] max-w-lg rounded-md bg-white p-6 max-h-[80vh]`
 	const divStyle = `bg-gray-300 hover:bg-gray-400 p-3 rounded-md cursor-pointer flex items-center gap-3 `
 	const btnStyle = `cursor-pointer p-3 bg-green-500 rounded-md hover:bg-green-600 `
-	const delBtn = `w-8 h-8 flex rounded-md justify-center items-center shrink-0 cursor-pointer`
+	const helpBtn = `w-8 h-8 flex rounded-md justify-center items-center shrink-0 cursor-pointer`
 	
 	async function getQuizzes(){
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/quizzes`,{
@@ -88,28 +88,32 @@ function QuizList({onSelect}){
 				{quizzes.length > 0 ? 'QUIZZES': 'No quizzes created yet 😴'}
 			</div>
 
+			<div className='flex flex-col gap-2 overflow-y-scroll'>
 			{quizzes.map((quiz, index)=>(
 				<div key={quiz.id} className={divStyle} onClick={()=>onSelect({id:quiz.id, title:quiz.title})}>
 					<span className='font-bold'>{index+1}.</span>
 					<span className='flex-1 break-words'>{quiz.title}</span>
 
-					<button className={`${delBtn} hover:bg-red-500`}
+					<button className={`${helpBtn} hover:bg-red-500`}
 					onClick={(e)=>{e.stopPropagation();Delete(quiz.id, quiz.title)}}>
 						<DeleteIcon/>
 					</button>
 
-					<button className={`${delBtn} hover:bg-blue-400`}
+					<button className={`${helpBtn} hover:bg-blue-400`}
 					onClick={(e)=>{e.stopPropagation(); edit(quiz.id)}}>
 						<EditIcon/>
 					</button>
 
-					<button className={`${delBtn} hover:bg-green-300`}
+					<button className={`${helpBtn} hover:bg-green-300`}
 					onClick={(e)=>{e.stopPropagation(); launch(quiz.id)}}>
 						<StartIcon/>
 					</button>
 				</div>
 
 			))} 
+			</div>
+
+
 			<button className={btnStyle} onClick={create}>+ Create a new Quiz</button>
 		</div>
 	)

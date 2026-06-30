@@ -9,8 +9,8 @@ function Questions({quiz, onBack}){
 	const [form, setForm] = useState({question_text:'',option_a:'',option_b:'',option_c:'',option_d:'',correct_option:'A'})
 	const [questions, setQuestions] = useState([])
 	const [show, setShow] = useState(false)
-	const holder = `w-[90vw] max-w-2xl bg-white rounded-md flex flex-col gap-2 p-6`
-	const divStyle = `flex items-center gap-3 bg-gray-300 hover:bg-gray-400 rounded-md p-3 cursor-pointer`
+	const holder = `w-[90vw] max-w-2xl bg-white rounded-md flex flex-col gap-2 p-6  max-h-[80vh]`
+	const divStyle = `flex items-center gap-3 bg-gray-300 hover:bg-gray-400 rounded-md p-3 cursor-pointer `
 	const btnStyle = `w-full p-3 bg-green-500 rounded-md cursor-pointer hover:bg-green-600`
 	const helpBtn = 'w-8 h-8 rounded-md flex items-center justify-center shrink-0 cursor-pointer'
 	const Input = `border-b border-b-blue-500 outline-none p-3`
@@ -72,6 +72,8 @@ function Questions({quiz, onBack}){
 				{quiz.title}
 				<button onClick={onBack} className='absolute left-2 cursor-pointer'><BackIcon/></button>
 			</div>
+
+			<div className='overflow-y-scroll flex flex-col gap-2'>
 			{questions.map((question, index)=>(
 				<div key={question.id} className={divStyle}>
 					<span className='font-bold'>Q{index+1}.</span>
@@ -86,7 +88,10 @@ function Questions({quiz, onBack}){
 
 				</div>
 			))}
+			</div>
+			
 			<button className={btnStyle} onClick={()=>{setShow(true)}}>+ Add a new question</button>
+
 
 
 			{show && (

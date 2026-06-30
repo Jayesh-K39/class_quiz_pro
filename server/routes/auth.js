@@ -48,6 +48,7 @@ router.post('/register', async (request, response)=>{
 })
 
 router.get('/verify', verifier, (request, response)=>response.sendStatus(200))
+
 router.get('/health', async (request, response)=>{
 	try{
 		await pool.query('select 1')
