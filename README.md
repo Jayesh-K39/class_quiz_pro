@@ -167,8 +167,20 @@ Frontend:
 cd client
 npm install
 ```
+**Create the database first:**
 
-## Import `database/schema.sql` into your MySQL instance
+```bash
+mysql -u your_user -p -e "CREATE DATABASE your_database_name;"
+```
+
+**Then import the schema:**
+
+CLI:
+```bash
+mysql -u your_user -p your_database_name < database/schema.sql
+```
+
+GUI (MySQL Workbench): Open Workbench → connect to your instance → File → Run SQL Script → select `database/schema.sql`.
 
 ### Environment variables
 
