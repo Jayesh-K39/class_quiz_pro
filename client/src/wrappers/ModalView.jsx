@@ -5,7 +5,7 @@ function ModalView({ modal, onClose }) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="bg-white rounded-xl p-6 flex flex-col gap-3 w-[80vw] max-w-md">
-        <p className='font-bold'>{modal.message}</p>
+        <p className='font-bold min-w-0 break-words'>{modal.message}</p>
         {modal.type === 'prompt' && (
           <input className='outline-none border-b border-b-blue-500'
           name='promptInput'

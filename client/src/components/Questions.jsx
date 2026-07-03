@@ -77,7 +77,7 @@ function Questions({quiz, onBack}){
 			{questions.map((question, index)=>(
 				<div key={question.id} className={divStyle}>
 					<span className='font-bold'>Q{index+1}.</span>
-					<span className='flex-1 break-words'>{question.question_text}</span>
+					<span className='flex-1 min-w-0 break-words'>{question.question_text}</span>
 					<button className={`${helpBtn} hover:bg-red-500`} onClick={()=>deleteQuestion(question.id, question.question_text)}>
 						<DeleteIcon/>
 					</button>

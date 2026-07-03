@@ -12,7 +12,7 @@ function QuizList({onSelect}){
 	const navigate = useNavigate()
 	const [quizzes, setQuizzes] = useState([])
 	const holder = `flex flex-col gap-2 w-[90vw] max-w-lg rounded-md bg-white p-6 max-h-[80vh]`
-	const divStyle = `bg-gray-300 hover:bg-gray-400 p-3 rounded-md cursor-pointer flex items-center gap-3 `
+	const divStyle = `bg-gray-300 hover:bg-gray-400 p-3 rounded-md cursor-pointer flex items-center gap-3`
 	const btnStyle = `cursor-pointer p-3 bg-green-500 rounded-md hover:bg-green-600 `
 	const helpBtn = `w-8 h-8 flex rounded-md justify-center items-center shrink-0 cursor-pointer`
 	
@@ -31,6 +31,7 @@ function QuizList({onSelect}){
 		const title = await prompt('Enter the title for your quiz here: ')
 		
 		if(!title)return;
+		console.log(title.length)
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/quizzes`,{
 			method:'POST',
 			headers:{'Content-Type':'application/json', 'Authorization':`Bearer ${localStorage.getItem('token')}`},
@@ -92,7 +93,7 @@ function QuizList({onSelect}){
 			{quizzes.map((quiz, index)=>(
 				<div key={quiz.id} className={divStyle} onClick={()=>onSelect({id:quiz.id, title:quiz.title})}>
 					<span className='font-bold'>{index+1}.</span>
-					<span className='flex-1 break-words'>{quiz.title}</span>
+					<span className='flex-1 min-w-0 break-words'>{quiz.title}</span>
 
 					<button className={`${helpBtn} hover:bg-red-500`}
 					onClick={(e)=>{e.stopPropagation();Delete(quiz.id, quiz.title)}}>

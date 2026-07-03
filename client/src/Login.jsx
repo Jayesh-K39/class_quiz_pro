@@ -31,7 +31,10 @@ function Login(){
 				body:JSON.stringify({email, password})
 			})
 			const data = await response.json()
-			if(data.error){toast.error(data.error);return}
+			if(data.error){
+				toast.error(data.error)
+				return
+			}
 			localStorage.setItem('token', data.token)
 			navigate('/controlroom', {replace:true})
 		}

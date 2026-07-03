@@ -3,9 +3,10 @@ import pool from '../db.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import verifier from '../middleware/verifier.js'
+import {authLimiter} from '../middleware/rate_limiter.js'
 const router = express.Router()
 
-router.post('/login', async (request, response)=>{
+router.post('/login', authLimiter ,async (request, response)=>{
 	const email = request.body.email?.trim()
 	const password = request.body.password?.trim()
 	if(!email || !password)return response.sendStatus(400)
