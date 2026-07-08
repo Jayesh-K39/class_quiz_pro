@@ -65,9 +65,8 @@ function QuizList({onSelect}){
 
 	async function launch(quizId){
 		const time = Number(await prompt('How many seconds should each question take?'))
-		console.log(typeof time)
-		if(!time)return;
-		if(!Number.isInteger(time) || time <= 0)return;
+		if(!time)return toast.error('Please enter a valid time limit');
+		if(!Number.isInteger(time) || time <= 0)return toast.error('Please enter integer time limit only (e.g. 10,20,30,etc.)');
 		socket.connect()
 		socket.emit('create_session', {quizId, timePerQuestion:time})
 		socket.once('session_created', ({roomCode})=>{
