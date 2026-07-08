@@ -136,7 +136,7 @@ function Card({question, endsAt, status, selectedAnswer, score}){
 				 	{status === 'revealed' ?
 
 				 	selectedAnswer ? 
-				 	question.correct_option === selectedAnswer ? `Correct Answer!` : 
+				 	question.correct_option === selectedAnswer ? `Correct Answer! 🎉🎉` : 
 				 	`Uh oh! You submitted option ${selectedAnswer} but he correct option was ${question.correct_option}`
 
 				 	: `You did not answer this question. Correct option is ${question.correct_option}` //If !selectedAnswer
