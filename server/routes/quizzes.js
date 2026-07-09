@@ -72,24 +72,29 @@ router.post('/:id/questions', verifier, async (request, response)=>{
 
 	const fields = [question_text, option_a, option_b, option_c, option_d, correct_option]
 	if(fields.some(field => !field))
-		return response.sendStatus(400)
+		return response.status(400).json({error:'None of the options can be empty'})
 	
-	const options = ['A','B','C','D']
-	if(!options.includes(correct_option))
-		return response.sendStatus(400)
+	if(!['A', 'B', 'C', 'D'].includes(correct_option))
+		return response.status(400).json({error:'The correct option shall only include either A,B,C or D'})
+
+	const options = [option_a, option_b, option_c, option_d]
+	if(new Set(options).size !== options.length){
+		return response.status(400).json({error:"All the options must be unique"})
+	}
+
 	try{
 		const [quiz] = await pool.query('select * from quizzes where id=? and teacher_id=?',
 		[request.params.id, request.teacher.id])
-		if(quiz.length === 0) return response.sendStatus(403)
+		if(quiz.length === 0) return response.status(403).json({error:'Invalid quiz id'})
 		const [countResult] = await pool.query('Select count(*) as count from questions where quiz_id=?',[request.params.id])
 		const order_index = countResult[0].count
 		await pool.query(`insert into questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option, order_index)
 		values(?,?,?,?,?,?,?,?)`,
 		[request.params.id, question_text, option_a, option_b, option_c, option_d, correct_option, order_index])
 	
-		response.sendStatus(201)
+		response.status(201).json({message:'Question Created'})
 	}
-	catch{response.sendStatus(500)}
+	catch{response.status(500).json({error:'Server Error. Please Stand By...'})}
 })
 
 

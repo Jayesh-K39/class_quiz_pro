@@ -3,6 +3,7 @@ import DeleteIcon from '../icons/delIcon'
 import BackIcon from '../icons/BackIcon'
 import EditIcon from '../icons/EditIcon'
 import {useModal} from '../wrappers/ModalProvider'
+import {toast} from 'react-hot-toast'
 
 function Questions({quiz, onBack}){
 	const {confirm, prompt} = useModal()
@@ -27,16 +28,20 @@ function Questions({quiz, onBack}){
 
 	async function addQuestion(e){
 		e.preventDefault()
-		const response = await fetch(`${import.meta.env.VITE_API_URL}/quizzes/${quiz.id}/questions`, {
-			method:'POST',
-			headers:{'Content-Type':'application/json', 'Authorization':`Bearer ${localStorage.getItem('token')}`},
-			body:JSON.stringify({question_text:form.question_text, option_a:form.option_a, option_b:form.option_b, 
-			option_c:form.option_c, option_d:form.option_d, correct_option:form.correct_option})
-		})
-		if(!response.ok)return;
-		await getQuestions()
-		setForm({question_text:'',option_a:'',option_b:'',option_c:'',option_d:'',correct_option:'A'})
-		setShow(false)
+		try{
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/quizzes/${quiz.id}/questions`, {
+				method:'POST',
+				headers:{'Content-Type':'application/json', 'Authorization':`Bearer ${localStorage.getItem('token')}`},
+				body:JSON.stringify({question_text:form.question_text, option_a:form.option_a, option_b:form.option_b, 
+				option_c:form.option_c, option_d:form.option_d, correct_option:form.correct_option})
+			})
+			const data = await response.json()
+			if(data.error)return toast.error(data.error);
+			await getQuestions()
+			setForm({question_text:'',option_a:'',option_b:'',option_c:'',option_d:'',correct_option:'A'})
+			setShow(false)
+		}
+		catch(err){ console.log(err) }
 	}
 
 	async function deleteQuestion(id, title){
