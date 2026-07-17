@@ -11,10 +11,19 @@ function Join(){
 		const roomCode = sessionStorage.getItem('roomCode')
 		const name = sessionStorage.getItem('name')
 		const studentId = sessionStorage.getItem('studentId')
-
+		
 		if( roomCode && name && studentId) return navigate('/student', {replace:true})
 
+		const handleError = ({error}) =>{
+			toast.error(error)
+			socket.off('session_not_found')
+		}
+		socket.on('session_error', handleError)
 		document.title = 'Class Quiz Pro | Student Joining'
+
+		return()=>{
+			socket.off('session_error', handleError)
+		}
 	}, [])
 
 	const bodyStyle = `min-h-screen bg-[#4c1d95] flex flex-col items-center justify-center gap-4`
@@ -43,10 +52,7 @@ function Join(){
 			sessionStorage.setItem('studentId', data.studentId)
 			navigate('/student', {replace:true})		
 		})
-
-		socket.once('connect',()=>{
-			socket.emit('join_room', {roomCode, name})
-		})
+		socket.emit('join_room', {roomCode, name})
 	}
 	return(
 	<div className={bodyStyle}>

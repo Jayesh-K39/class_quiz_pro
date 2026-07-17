@@ -27,14 +27,18 @@ function Register(){
 		const cleanedConfirm = confirmPassword.trim()
 		const cleanedEmail = email.trim().toLowerCase()
 		if(cleanedPassword !== cleanedConfirm)return toast.error('Passwords do not match');
-		const response = await fetch(`${import.meta.env.VITE_API_URL}/register`,{
-			method:'POST',
-			headers:{'Content-Type':'application/json'},
-			body:JSON.stringify({email:cleanedEmail, password:cleanedPassword})
-		})
-		const data = await response.json()
-		if(data.error){toast.error(data.error);return;}
-		navigate('/login', {replace:true})
+		try{
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/register`,{
+				method:'POST',
+				headers:{'Content-Type':'application/json'},
+				body:JSON.stringify({email:cleanedEmail, password:cleanedPassword})
+			})
+			const data = await response.json()
+			if(data.error){toast.error(data.error);return;}
+			navigate('/login', {replace:true})
+		}catch{
+			toast.error('Server Error. Please Stand By...')
+		}
 	}
 	return(
 		<div className={bodyStyle}>

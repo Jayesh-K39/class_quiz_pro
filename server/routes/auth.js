@@ -29,8 +29,8 @@ router.post('/login', authLimiter ,async (request, response)=>{
 	catch(err){console.log(err); response.sendStatus(500)}
 })
 
-router.post('/register', async (request, response)=>{
-	const email = request.body.email?.trim()
+router.post('/register', authLimiter, async (request, response)=>{
+	const email = request.body.email?.trim().toLowerCase()
 	const password = request.body.password?.trim()
 	if(!email || !password)return response.sendStatus(400)
 	try{
@@ -39,11 +39,22 @@ router.post('/register', async (request, response)=>{
 		response.status(201).json({message:`Successfully registered as a teacher!`})
 	}
 	catch(err){
-		console.log(err)
 		if(err.code === 'ER_DUP_ENTRY'){
 			return response.status(409).json(
 			{error:"This e-mail is already linked to another account"})
 		}
+		response.sendStatus(500)
+	}
+})
+
+router.delete('/', verifier, async (request, response)=>{
+	try{
+		const [result] = await pool.query('delete from teachers where id=?', [request.teacher.id])
+		if(result.affectedRows === 0)
+			return response.sendStatus(410)
+		response.sendStatus(204);
+	}catch(err){
+		console.log(err)
 		response.sendStatus(500)
 	}
 })

@@ -50,16 +50,18 @@ function QuizList({onSelect}){
 			headers:{'Content-Type':'application/json', 'Authorization':`Bearer ${localStorage.getItem('token')}`},
 			body:JSON.stringify({update})
 		})
+		if(!response.ok)return;
 		getQuizzes()
 	}
 
 	async function Delete(id, title){
 		const confirmation = await confirm(`Are you sure you want to delete the quiz titled: '${title}'`)
 		if(!confirmation)return;
-		await fetch(`${import.meta.env.VITE_API_URL}/quizzes/${id}`, {
+		const response = await fetch(`${import.meta.env.VITE_API_URL}/quizzes/${id}`, {
 			method:'DELETE',
 			headers:{'Authorization':`Bearer ${localStorage.getItem('token')}`}
 		})
+		if(!response.ok)return;
 		getQuizzes()
 	}
 
@@ -80,7 +82,6 @@ function QuizList({onSelect}){
 			socket.disconnect()
 			toast.error(message)
 		})
-
 	}
 
 	useEffect(()=>{getQuizzes()}, [])

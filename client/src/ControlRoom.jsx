@@ -5,6 +5,7 @@ import UserIcon from './icons/UserIcon'
 import QuizList from './components/QuizList'
 import Questions from './components/Questions'
 import LogOut from './components/LogOutModal'
+import {toast} from 'react-hot-toast'
 import {useModal} from './wrappers/ModalProvider'
 import {jwtDecode} from 'jwt-decode'
 
@@ -27,7 +28,20 @@ function ControlRoom(){
 		sessionStorage.clear()
 		localStorage.clear()
 		navigate('/', {replace:true})
-		
+	}
+
+	async function handleDelete(){
+		const confirmation = await confirm(`Are you sure you want to delete this account? This action is permanent and will result into deletion of your entire app data of this account.`)
+		if(!confirmation)return;
+		const response =  await fetch(`${import.meta.env.VITE_API_URL}/`, {
+			method:'DELETE',
+			headers:{'Authorization':`Bearer ${localStorage.getItem('token')}`}
+		})
+		if(!response.ok)return toast.error('Some error occured...')
+		toast.success('Account deleted')
+		sessionStorage.clear()
+		localStorage.clear()
+		navigate('/', {replace:true})
 	}
 	const token = localStorage.getItem('token')
 	const email = token ? jwtDecode(token).email : ''
@@ -36,7 +50,8 @@ function ControlRoom(){
 			<button className={btnStyle} onClick={()=>setModal(true)}><UserIcon/></button>
 			{selectedQuiz ? <Questions quiz={selectedQuiz} onBack={()=>setSelectedQuiz(null)}/> : <QuizList onSelect={setSelectedQuiz}/>}
 
-			{modal && <LogOut setModal={setModal} logout={logout} email={email}/>}
+			{modal && <LogOut setModal={setModal} logout={logout} 
+			Delete={handleDelete} email={email}/>}
 		</div>
 	)
 }
