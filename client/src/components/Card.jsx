@@ -85,7 +85,7 @@ function Card({question, endsAt, status, selectedAnswer, score}){
 			sessionStorage.clear()
 			return navigate('/join', {replace:true})
 		}
-		socket.emit('submit_question', {roomCode, qid:question.id, answer:selected})
+		socket.emit('submit_answer', {roomCode, qid:question.id, answer:selected})
 	}
 
 //Styles: ----------------------------------------------------

@@ -35,6 +35,7 @@ function Register(){
 			})
 			const data = await response.json()
 			if(data.error){toast.error(data.error);return;}
+			toast.success('Account Created')
 			navigate('/login', {replace:true})
 		}catch{
 			toast.error('Server Error. Please Stand By...')

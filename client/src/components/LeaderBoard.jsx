@@ -1,18 +1,19 @@
 import Tick from '../icons/Tick'
 import Cross from '../icons/Cross'
 import MinusIcon from '../icons/MinusIcon'
-
 function LeaderBoard({students,answers, correctOption, onlineCount}){
-	const holder = `flex flex-col gap-3 p-3 bg-white rounded-md p-5 shadow 
+	const holder = `flex flex-col gap-2 p-3 bg-white rounded-md p-5 shadow 
 	w-[90vw] max-w-2xl mx-auto text-black transition-all duration-[400ms] ease-in-out`
 	if(!correctOption)return;
 	const correctCount = Object.values(answers).filter(answer => answer === correctOption).length
 	const wrongCount =  Object.values(answers).filter(answer => answer !== correctOption).length
 	const unansweredCount = onlineCount - (correctCount + wrongCount)
 	return(
+
+//THIS
 		<div className={holder}>
-			<div className='grid grid-cols-3 gap-3 mb-4'>
-				<div className='flex flex-col items-center justify-center bg-green-300 rounded-md'>
+			<div className='grid grid-cols-3 gap-3 mb-3'>
+				<div className='flex flex-col items-center justify-center bg-green-300 rounded-md p-2'>
 					<div><Tick/></div>
 					<div className='font-bold'>{correctCount}</div>
 					<div>Correct</div>
@@ -36,6 +37,7 @@ function LeaderBoard({students,answers, correctOption, onlineCount}){
 				<div>Name</div>
 				<div>Score</div>
 			</div>
+
 
 			{
 				Object.entries(students).sort((a,b) => b[1].score - a[1].score)

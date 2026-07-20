@@ -100,9 +100,8 @@ function Session(){
 
 	const divStyle = `bg-gray-300 p-3 rounded-md flex items-center gap-3`
 	const helper = `w-8 h-8 shrink-0 flex justify-center items-center cursor-pointer hover:bg-green-300 rounded-md`
-
+	const onlineStudents = Object.fromEntries(Object.entries(students).filter(([_, student]) => student.socketId))
 	const onlineCount = Object.values(students).filter(student => student.socketId).length
-
 	const question = questions.find(q => q.id === activeQuestionId)
 	const correctOption = question?.correct_option ?? null
 	return(
@@ -141,8 +140,8 @@ function Session(){
 				))}
 			</div>
 
-		{onlineCount > 0 && status==='revealed' && <LeaderBoard students={students} answers={answers} correctOption={correctOption}
-		onlineCount={onlineCount}/>}
+		{onlineCount > 0 && status==='revealed' && 
+		<LeaderBoard students={onlineStudents} answers={answers} correctOption={correctOption} onlineCount={onlineCount}/>}
 		</div>
 	)
 }

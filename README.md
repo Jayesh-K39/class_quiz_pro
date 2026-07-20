@@ -89,7 +89,7 @@ The socket connection runs a verifier on each new connection: if the connecting 
 | `question_started` | Server → Room | Sent to all clients when a question becomes active; also sent to a student joining mid-session if a question is currently active |
 | `stop_question` | Teacher → Server | Closes the current question |
 | `question_ended` | Server → Room | Sent to all clients when a question closes; also sent to a student joining mid-session if the question is in revealed state |
-| `submit_question` | Student → Server | Student submits their answer |
+| `submit_answer` | Student → Server | Student submits their answer |
 | `submit_success` | Server → Student | Answer recorded successfully |
 | `submit_error` | Server → Student | Student already answered, or question is not currently active |
 | `session_not_found` | Server → Student | Emitted on submit if the session no longer exists |

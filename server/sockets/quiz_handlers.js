@@ -46,11 +46,14 @@ export default function registerQuizHandlers(io, socket){
 
 
 
-// Submission of a question by student: -------------------------------------------------------------------------------------------
-	socket.on('submit_question', ({roomCode, qid, answer})=>{
+// Submission of an answer by student: -------------------------------------------------------------------------------------------
+
+	socket.on('submit_answer', ({roomCode, qid, answer})=>{
  		const session = sessions[roomCode]
  		if(!session)return socket.emit('session_not_found', {message:'This session could not be found'})
         if(!socket.studentId || !(socket.studentId in session.students))return;
+
+        if(!['A', 'B', 'C', 'D'].includes(answer))return;
 
         if(socket.studentId in session.answers)
         	return socket.emit('submit_error', {message:"You have already submitted an answer to this question"})
