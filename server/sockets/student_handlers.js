@@ -3,8 +3,8 @@ import {sessions} from './state.js'
 
 export default function registerStudentHandlers(io, socket){
 	socket.on('join_room', async ({roomCode, name, studentId})=>{
-		try{
-			await limiter.consume(socket.handshake.address)
+		// try{
+			// await limiter.consume(socket.handshake.address)
 			const session = sessions[roomCode]
 			if(!session)return socket.emit('session_not_found', {message:'This session could not found'})
 			if(session.status === 'ended') return socket.emit('session_not_found', {message: 'This session could not be found'})
@@ -55,9 +55,9 @@ export default function registerStudentHandlers(io, socket){
 		 			socket.emit('question_ended', {selectedAnswer: session.answers[socket.studentId], question:currentQuestion, score:0})
 		 		}
 		 	}
-		}catch(info){
-			socket.emit('session_error', {error:`Too many attempts made. Please try again after ${Math.ceil(info.msBeforeNext/1000)} seconds`})
-		}
+		// }catch(info){
+			// socket.emit('session_error', {error:`Too many attempts made. Please try again after ${Math.ceil(info.msBeforeNext/1000)} seconds`})
+		// }
 	})
 }
 

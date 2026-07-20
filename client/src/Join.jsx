@@ -59,10 +59,10 @@ function Join(){
 		<form className={holderStyle} onSubmit={e=>joinRoom(e)}>
 			<div className='text-center font-bold'>Student Login</div>
 	
-				<input name='email'
+				<input name='student_name'
 				type='text'
 				value={name} 
-				autoComplete='on' 
+				autoComplete='student_name' 
 				required
 				onChange={e=>setName(e.target.value)}
 				placeholder='Enter your name here: ' 
@@ -74,7 +74,7 @@ function Join(){
 					<input name='roomcode' 
 					value={roomCode}
 					type={show ? 'text': 'password'}
-					autoComplete='on'
+					autoComplete='roomcode'
 					required
 					onChange={e=>setCode(e.target.value)}
 					placeholder='Enter a valid room code: '
