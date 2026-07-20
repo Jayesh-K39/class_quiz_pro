@@ -62,7 +62,7 @@ function Join(){
 				<input name='email'
 				type='text'
 				value={name} 
-				autoComplete='email' 
+				autoComplete='on' 
 				required
 				onChange={e=>setName(e.target.value)}
 				placeholder='Enter your name here: ' 
@@ -74,7 +74,7 @@ function Join(){
 					<input name='roomcode' 
 					value={roomCode}
 					type={show ? 'text': 'password'}
-					autoComplete='current-password'
+					autoComplete='on'
 					required
 					onChange={e=>setCode(e.target.value)}
 					placeholder='Enter a valid room code: '
