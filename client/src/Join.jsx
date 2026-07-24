@@ -8,9 +8,9 @@ import EyeSlash from './icons/EyeSlash'
 function Join(){
 	const navigate = useNavigate()
 	useEffect(()=>{
-		const roomCode = sessionStorage.getItem('roomCode')
-		const name = sessionStorage.getItem('name')
-		const studentId = sessionStorage.getItem('studentId')
+		const roomCode = sessionStorage.getItem('roomCode')?.trim()
+		const name = sessionStorage.getItem('name')?.trim()
+		const studentId = sessionStorage.getItem('studentId')?.trim()
 		
 		if( roomCode && name && studentId) return navigate('/student', {replace:true})
 
@@ -47,12 +47,12 @@ function Join(){
 		})
 
 		socket.once('join_success', (data)=>{
-			sessionStorage.setItem('roomCode', roomCode)
-			sessionStorage.setItem('name', name)
-			sessionStorage.setItem('studentId', data.studentId)
+			sessionStorage.setItem('roomCode', roomCode?.trim())
+			sessionStorage.setItem('name', name?.trim())
+			sessionStorage.setItem('studentId', (data.studentId)?.trim())
 			navigate('/student', {replace:true})		
 		})
-		socket.emit('join_room', {roomCode, name})
+		socket.emit('join_room', {roomCode:roomCode.trim(), name})
 	}
 	return(
 	<div className={bodyStyle}>
@@ -62,7 +62,7 @@ function Join(){
 				<input name='student_name'
 				type='text'
 				value={name} 
-				autoComplete='student_name' 
+				autoComplete='off' 
 				required
 				onChange={e=>setName(e.target.value)}
 				placeholder='Enter your name here: ' 
@@ -74,7 +74,7 @@ function Join(){
 					<input name='roomcode' 
 					value={roomCode}
 					type={show ? 'text': 'password'}
-					autoComplete='roomcode'
+					autoComplete='off'
 					required
 					onChange={e=>setCode(e.target.value)}
 					placeholder='Enter a valid room code: '

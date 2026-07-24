@@ -21,7 +21,7 @@ function Student(){
 
 		const handleJoin = (data) => {
 			setStatus(data.status)
-			sessionStorage.setItem('studentId', data.studentId)
+			sessionStorage.setItem('studentId', (data.studentId)?.trim())
 		}
 		const handleIssue = ({message} = {}) =>{
 			socket.disconnect()

@@ -1,6 +1,5 @@
-const numbers = ['2', '3', '4','6', '7', '8', '9']
-const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 't', 'w', 'x', 'y', 'z',
-'A', 'B', 'D', 'E', 'H', 'Q', 'R', 'T']
+const numbers = ['2', '3', '4','5', '6', '7', '8', '9']
+const letters = ['A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y']
 
 export default function generator(){
 	let code = ''

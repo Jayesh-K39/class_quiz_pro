@@ -9,7 +9,8 @@ function ModalView({ modal, onClose }) {
         {modal.type === 'prompt' && (
           <input className='outline-none border-b border-b-blue-500'
           name='promptInput'
-          value={value} onChange={(e) => setValue(e.target.value)} autoFocus 
+          value={value}
+          onChange={(e) => setValue(e.target.value)} autoFocus 
           onKeyDown={e=>{
           	if(e.key === 'Enter'){
           		onClose(value)

@@ -8,6 +8,7 @@ function Login(){
 	const navigate = useNavigate()
 	useEffect(()=>{
 		document.title = 'Class Quiz Pro | Teacher Login'
+		console.log(import.meta)
 	}, [])
 
 	const bodyStyle = `min-h-screen bg-[#4c1d95] flex flex-col items-center justify-center gap-4`

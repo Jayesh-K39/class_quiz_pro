@@ -5,7 +5,6 @@ export default function registerTeacherHandlers(io, socket){
 		const session = sessions[roomCode]
 			if(!session)return socket.emit('session_not_found', {message:`Session with room code ${roomCode} could not be found`})
 			if(session.teacherId !== socket.teacher.id)return socket.emit('session_not_found', {message:`Session with room code ${roomCode} could not be found`})
-			if(session.status === 'ended') return socket.emit('session_not_found', {message:`Session with room code ${roomCode} could not be found`})
 			socket.join(roomCode)
 			session.teacherSocketId = socket.id
 

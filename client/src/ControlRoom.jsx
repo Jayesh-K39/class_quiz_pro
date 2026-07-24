@@ -18,7 +18,7 @@ function ControlRoom(){
 	const btnStyle = `p-1 rounded-full absolute top-5 right-5 cursor-pointer bg-white`
 
 	useEffect(()=>{
-		if(sessionStorage.getItem('roomCode'))return navigate('/session', {replace:true})
+		if(sessionStorage.getItem('roomCode')?.trim())return navigate('/session', {replace:true})
 		document.title ='Class Quiz Pro | Teacher Control Room'
 	}, [selectedQuiz])
 

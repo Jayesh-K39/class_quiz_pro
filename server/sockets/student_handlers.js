@@ -4,8 +4,6 @@ export default function registerStudentHandlers(io, socket){
 	socket.on('join_room', async ({roomCode, name, studentId})=>{
 		const session = sessions[roomCode]
 		if(!session)return socket.emit('session_not_found', {message:'This session could not found'})
-		if(session.status === 'ended') return socket.emit('session_not_found', {message: 'This session could not be found'})
-
 		if(studentId && studentId in session.students){
 			socket.studentId = studentId
 			socket.roomCode = roomCode

@@ -39,8 +39,6 @@ export default function registerQuizHandlers(io, socket){
 
 		if(session.activeQuestionId === null || 
 		session.activeQuestionId !== qid)return;
-
-		if(session.status === 'ended') return
 		endQuestion(io, roomCode, session, qid)
 	})
 

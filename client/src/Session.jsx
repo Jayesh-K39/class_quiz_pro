@@ -16,8 +16,8 @@ function Session(){
 	const [status, setStatus] = useState('')
 	const [answers, setAnswers] = useState({})
 	useEffect(()=>{
-		if(!sessionStorage.getItem('roomCode'))return navigate('/controlroom', {replace:true})
-		const roomCode = sessionStorage.getItem('roomCode')
+		const roomCode = sessionStorage.getItem('roomCode')?.trim()
+		if(!roomCode)return navigate('/controlroom', {replace:true})
 		socket.connect()
 		
 		const handleSuccess = ({session}) =>{
@@ -72,12 +72,12 @@ function Session(){
 	async function end(){
 		const confirmation = await confirm('Are you sure you want to end the quiz? This action cannot be undone')
 		if(!confirmation)return;
-		const roomCode = sessionStorage.getItem('roomCode')
+		const roomCode = sessionStorage.getItem('roomCode')?.trim()
 		if(!roomCode)return;
 		socket.emit('disband_room', {roomCode}) 
 	}
 
-	const roomCode = sessionStorage.getItem('roomCode')
+	const roomCode = sessionStorage.getItem('roomCode')?.trim()
 	const startQuestion = (qid) =>{
 		if(!roomCode)return;
 		if(qid == null)return;
@@ -112,7 +112,7 @@ function Session(){
 				<span className='text-black bg-white p-3 rounded-md font-bold'>
 				{`${onlineCount > 0 ? onlineCount : 'No'} student${onlineCount > 1 ? 's are' : ' is'} online`}</span>
 
-				<span className='p-3 rounded-md bg-white font-bold'>RoomCode : {sessionStorage.getItem('roomCode')}</span>
+				<span className='p-3 rounded-md bg-white font-bold'>RoomCode : {sessionStorage.getItem('roomCode')?.trim()}</span>
 				<button className={btnStyle} onClick={end}>End Quiz</button>
 			</div>
 
