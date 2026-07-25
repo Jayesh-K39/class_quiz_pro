@@ -32,6 +32,7 @@ function Protection({children}){
 
 	if(status === 'checking') return null
 	if(status === 'unauth') return <Navigate to='/' replace />
+	//if authenticated:
 	return children
 }
 

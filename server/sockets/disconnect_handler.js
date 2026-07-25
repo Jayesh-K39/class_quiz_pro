@@ -13,7 +13,7 @@ export default function registerDisconnectHandler(io, socket){
 				session.gracetimer = setTimeout(()=>{
 				        if(!sessions[roomCode])return;
 				        disbandRoom(io, roomCode)
-				}, 60000)
+				}, 40000)
 			}
 			else{
 				const student = session.students[socket.studentId]

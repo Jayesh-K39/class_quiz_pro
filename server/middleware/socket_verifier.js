@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken'
-
 function verifier(socket, next){
 	const token = socket.handshake.auth.token
 	if(token){
