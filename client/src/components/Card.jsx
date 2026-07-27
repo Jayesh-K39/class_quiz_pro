@@ -93,7 +93,7 @@ function Card({question, endsAt, status, selectedAnswer, score}){
 	const questionBox = `rounded-md bg-[#4c1d95] p-3 w-full text-center text-white font-bold`
 	const card = `bg-white rounded-md p-3 w-[80vw] max-w-sm flex flex-col gap-2 mx-auto my-4`
 	const upperDiv = `text-center w-[80vw] max-w-sm flex flex-col sm:flex-row justify-center sm:items-center self-center gap-3 p-3`
-	const optionDiv = `rounded-md p-3 flex gap-2`
+	const optionDiv = `rounded-md p-3 flex gap-2 ${status === 'active' ? 'border' : ''}`
 	const btnStyle = `cursor-pointer bg-red-500 p-3 rounded-md hover:bg-red-600 font-bold text-white`	 
 	const helper = `w-[80vw] max-w-sm p-3 rounded-md block mx-auto`
 	const options = ['A', 'B', 'C', 'D']
