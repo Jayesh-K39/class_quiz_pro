@@ -1,8 +1,19 @@
 # Class Quiz Pro
 
-A full duplex real-time classroom quiz platform. Teachers create accounts, build and manage reusable quizzes, then conduct live sessions that students join with a server-generated room code — with instant answer submission, live scoring, and a leaderboard.
+A real-time classroom quiz platform built to survive the actual failure modes of a live session — teacher disconnects, student reconnects, and mid-session joins — not just the happy path. Teachers create accounts, build reusable quizzes, and conduct live sessions students join with a server-generated room code.
 
 **Live Demo:** [classquizpro.vercel.app](https://classquizpro.vercel.app)
+
+---
+
+## Challenges Solved
+
+- Enforcing per-teacher resource ownership at the API level — a teacher cannot read or modify another teacher's quizzes or questions
+- Server-authoritative session state — clients receive state from the server on join/rejoin rather than trusting their own local state
+- Reconnection recovery for both teachers (grace timer + state restore) and students (rejoin without losing progress)
+- Correctly syncing mid-session joins — a student who joins after a question has started or been revealed receives the right state immediately
+- Preventing duplicate answer submissions and submissions to inactive questions
+- Handling the edge case of a teacher joining their own session as a student
 
 ---
 
@@ -220,14 +231,10 @@ npm run dev
 
 ---
 
-## Challenges Solved
+## Known Limitations
 
-- Enforcing per-teacher resource ownership at the API level — a teacher cannot read or modify another teacher's quizzes or questions
-- Server-authoritative session state — clients receive state from the server on join/rejoin rather than trusting their own local state
-- Reconnection recovery for both teachers (grace timer + state restore) and students (rejoin without losing progress)
-- Correctly syncing mid-session joins — a student who joins after a question has started or been revealed receives the right state immediately
-- Preventing duplicate answer submissions and submissions to inactive questions
-- Handling the edge case of a teacher joining their own session as a student
+- **JWT possession implies access.** Like any bearer-token auth scheme, a valid JWT is sufficient to authenticate as that teacher — there's no additional binding (device, session, or refresh-token rotation) tying the token to the original login. This is a standard tradeoff of stateless JWT auth, not unique to this app, but worth flagging since there's no token revocation mechanism in place yet.
+- **No enforced single-session-per-teacher.** The app doesn't naturally allow a teacher to open the same session in two tabs, but this isn't enforced server-side — if a teacher manually manipulates `sessionStorage` to set an already-active room code, the new tab becomes the active teacher connection and the old tab loses session-control privileges until it's refreshed (at which point it reclaims control). Room ownership is currently tracked per-connection rather than per-teacher-account.
 
 ---
 
