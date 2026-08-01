@@ -15,7 +15,15 @@ import {Toaster, toast} from 'react-hot-toast'
 function App() {
   return (
   	<ModalProvider>
-  		<Toaster/>
+  		<Toaster position='top-center' toastOptions={{
+  			style: {
+  				background: '#1e1b3a',
+  				color: '#fff',
+  				border: '1px solid rgba(255,255,255,0.1)',
+  			},
+  			success: { iconTheme: { primary: '#34d399', secondary: '#1e1b3a' } },
+  			error: { iconTheme: { primary: '#fb7185', secondary: '#1e1b3a' } },
+  		}}/>
   		<Routes>
   			<Route path='/'
   				element={<Home/>}

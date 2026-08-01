@@ -1,30 +1,83 @@
 import {useEffect} from 'react'
 import {useNavigate, Link} from 'react-router-dom'
+import Bolt from './icons/Bolt'
 
-function Home(){
- 	const navigate = useNavigate()
-    useEffect(()=>{
-		document.title = 'Class Quiz Pro | Home'
-	}, [])
+export default function Home() {
+  useEffect(()=>{
+  	document.title = 'Class Quiz Pro | Home'
+  })
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-violet-950 via-indigo-950 to-slate-950 text-white">
+      <div className="mx-auto flex min-h-screen max-w-6xl items-center justify-between px-8">
 
+        {/* Left Side */}
+        <section className="max-w-xl">
+          <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-1 text-sm text-violet-300">
+            ⚡ Real-time Quiz Platform
+          </span>
 
-	const bodyStyle = `min-h-screen bg-[#4c1d95] flex justify-center items-center`
-	const card = `bg-white flex flex-col gap-2 rounded-xl p-6 w-[90vw] max-w-lg`
+          <h1 className="mt-6 text-6xl font-black tracking-tight">
+            Class Quiz Pro
+          </h1>
 
-	const divStyle = `w-full p-3 rounded-md text-center text-white font-bold cursor-pointer `
-	return(
-		<div className={bodyStyle}>
-			<div className={card}>
-				<div className='text-center font-bold'>Continue As:</div>
-				<Link to='/teacher' className={`${divStyle} bg-blue-500  hover:bg-blue-600`}>
-					Teacher
-				</Link>
+          <p className="mt-6 text-lg leading-8 text-slate-300">
+            Create engaging live quizzes for your classroom.
+            Students join instantly using a room code while teachers
+            control every question in real time.
+          </p>
 
-				<Link to='/join' className={`${divStyle} bg-green-500 hover:bg-green-600`}>
-					Student
-				</Link>
-			</div>
-		</div>
-        )
+          <div className="mt-10 flex gap-4">
+            <Link to='/teacher' className="rounded-xl bg-violet-600 px-8 py-4 font-semibold transition hover:bg-violet-500">
+              Continue as Teacher
+            </Link>
+
+            <Link to='/join' className="rounded-xl border border-slate-600 px-8 py-4 font-semibold transition hover:bg-slate-800">
+              Join Quiz
+            </Link>
+          </div>
+        </section>
+
+        {/* Right Side - Hidden on smaller screens*/}
+        <section className="hidden lg:block">
+          <div className="w-[430px] rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+
+            <div className="rounded-2xl bg-slate-900 p-5 shadow-xl">
+
+              <div className="mb-5 flex items-center justify-between">
+                <h2 className="font-semibold">
+                  Current Quiz
+                </h2>
+
+                <span className="rounded-full bg-green-500/20 px-3 py-1 text-sm text-green-400">
+                  Live
+                </span>
+              </div>
+
+              <div className="mb-6">
+                <p className="text-sm text-slate-400">
+                  Question 4 of 10
+                </p>
+
+                <h3 className="mt-2 text-xl font-bold">
+                  Which data structure uses FIFO?
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                {["Stack", "Queue", "Tree", "Graph"].map((option) => (
+                  <button
+                    key={option}
+                    className="w-full rounded-xl border border-slate-700 p-4 text-left transition hover:border-violet-500 hover:bg-violet-500/10"
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  );
 }
-export default Home
