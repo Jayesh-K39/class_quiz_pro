@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post('/login', authLimiter ,async (request, response)=>{
 	const email = request.body.email?.trim()
-	const password = request.body.password?.trim()
+	const password = request.body.password
 	if(!email || !password)return response.sendStatus(400)
 	try{
 		const [rows] = 
@@ -31,7 +31,7 @@ router.post('/login', authLimiter ,async (request, response)=>{
 
 router.post('/register', authLimiter, async (request, response)=>{
 	const email = request.body.email?.trim().toLowerCase()
-	const password = request.body.password?.trim()
+	const password = request.body.password
 	if(!email || !password)return response.sendStatus(400)
 	try{
 		const hash = await bcrypt.hash(password, 10)

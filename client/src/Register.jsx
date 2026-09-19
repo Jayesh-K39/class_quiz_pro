@@ -22,15 +22,13 @@ function Register() {
 
 	async function handler(e) {
 		e.preventDefault()
-		const cleanedPassword = password.trim()
-		const cleanedConfirm = confirmPassword.trim()
 		const cleanedEmail = email.trim().toLowerCase()
-		if (cleanedPassword !== cleanedConfirm) return toast.error('Passwords do not match');
+		if (password !== confirmPassword) return toast.error('Passwords do not match');
 		try {
 			const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ email: cleanedEmail, password: cleanedPassword })
+				body: JSON.stringify({ email: cleanedEmail, password})
 			})
 			const data = await response.json()
 			if (data.error) { toast.error(data.error); return; }

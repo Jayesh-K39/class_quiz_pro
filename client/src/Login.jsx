@@ -32,6 +32,7 @@ function Login() {
 				toast.error(data.error)
 				return
 			}
+			toast.success("Login successful!")
 			localStorage.setItem('token', data.token)
 			navigate('/controlroom', { replace: true })
 		}

@@ -4,6 +4,7 @@ export default function registerStudentHandlers(io, socket){
 	socket.on('join_room', async ({roomCode, name, studentId})=>{
 		const session = sessions[roomCode]
 		if(!session)return socket.emit('session_not_found', {message:'This session could not found'})
+		//If the student sends a valid studentId:
 		if(studentId && studentId in session.students){
 			socket.studentId = studentId
 			socket.roomCode = roomCode
@@ -29,6 +30,7 @@ export default function registerStudentHandlers(io, socket){
 			return;
 		}
 
+		//If the student is a new joinee:
 		socket.studentId = crypto.randomUUID()
 		socket.roomCode = roomCode
 		session.students[socket.studentId] = {name, score:0, socketId:socket.id}
