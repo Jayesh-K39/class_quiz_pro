@@ -63,39 +63,50 @@ router.get('/:id/questions', verifier, async (request, response)=>{
 
 
 router.post('/:id/questions', verifier, async (request, response)=>{
-	const question_text = request.body.question_text?.trim()
-	const option_a = request.body.option_a?.trim()
-	const option_b = request.body.option_b?.trim()
-	const option_c = request.body.option_c?.trim()
-	const option_d = request.body.option_d?.trim()
-	const correct_option = request.body.correct_option?.trim()
 
-	const fields = [question_text, option_a, option_b, option_c, option_d, correct_option]
+	const quizId = request.params.id
+	const questionData = {
+		question_text : request.body.question_text?.trim(),
+		option_a : request.body.option_a?.trim(),
+		option_b : request.body.option_b?.trim(),
+		option_c : request.body.option_c?.trim(),
+		option_d : request.body.option_d?.trim(),
+		correct_option : request.body.correct_option?.trim()
+	}
+
+	const fields = Object.values(questionData)
 	if(fields.some(field => !field))
 		return response.status(400).json({error:'None of the options can be empty'})
 	
-	if(!['A', 'B', 'C', 'D'].includes(correct_option))
+	if(!['A', 'B', 'C', 'D'].includes(questionData.correct_option))
 		return response.status(400).json({error:'The correct option shall only include either A,B,C or D'})
 
-	const options = [option_a, option_b, option_c, option_d]
+	const options = [questionData.option_a, 
+	questionData.option_b, 
+	questionData.option_c, 
+	questionData.option_d
+	]
+
 	if(new Set(options).size !== options.length){
 		return response.status(400).json({error:"All the options must be unique"})
 	}
 
 	try{
 		const [quiz] = await pool.query('select * from quizzes where id=? and teacher_id=?',
-		[request.params.id, request.teacher.id])
+		[quizId, request.teacher.id])
 		if(quiz.length === 0) return response.status(403).json({error:'Invalid quiz id'})
-		const [countResult] = await pool.query('Select count(*) as count from questions where quiz_id=?',[request.params.id])
+		const [countResult] = await pool.query('Select count(*) as count from questions where quiz_id=?',[quizId])
 		const order_index = countResult[0].count
-		await pool.query(`insert into questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option, order_index)
+
+		const [insertResult] = await pool.query(
+		`insert into questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option, order_index) 
 		values(?,?,?,?,?,?,?,?)`,
-		[request.params.id, question_text, option_a, option_b, option_c, option_d, correct_option, order_index])
-	
-		response.status(201).json({message:'Question Created'})
+		[quizId, ...fields, order_index])
+
+		const question = {id:insertResult.insertId, quiz_id:quizId, order_index, ...questionData}
+		response.status(201).json({message:'Question Created', question})
 	}
 	catch{response.status(500).json({error:'Server Error. Please Stand By...'})}
 })
-
 
 export default router

@@ -21,7 +21,7 @@ function ModalView({ modal, onClose }) {
 						}} />
 				)}
 				<div className="flex gap-3">
-					<Button variant="secondary" className="flex-1" onClick={() => onClose(false)}>Cancel</Button>
+					<Button variant="secondary" className="flex-1" onClick={() => onClose(null)}>Cancel</Button>
 					<Button variant="primary" className="flex-1" onClick={() => onClose(modal.type === 'prompt' ? value : true)}>
 						OK
 					</Button>

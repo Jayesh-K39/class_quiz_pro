@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import UserIcon from './icons/UserIcon'
 import QuizList from './components/QuizList'
-import Questions from './components/Questions'
+import Qholder from './components/Qholder'
 import LogOut from './components/LogOutModal'
 import { toast } from 'react-hot-toast'
 import { useModal } from './wrappers/ModalProvider'
@@ -10,7 +10,7 @@ import { jwtDecode } from 'jwt-decode'
 import Shell from './components/ui/Shell'
 import IconButton from './components/ui/IconButton'
 
-function ControlRoom() {
+export default function ControlRoom() {
 	const { confirm } = useModal()
 	const navigate = useNavigate()
 	const [selectedQuiz, setSelectedQuiz] = useState(null)
@@ -50,11 +50,9 @@ function ControlRoom() {
 				<UserIcon />
 			</IconButton>
 
-			{selectedQuiz ? <Questions quiz={selectedQuiz} onBack={() => setSelectedQuiz(null)} /> : <QuizList onSelect={setSelectedQuiz} />}
-
+			{selectedQuiz ? <Qholder quiz={selectedQuiz} onBack={() => setSelectedQuiz(null)} /> : <QuizList onSelect={setSelectedQuiz} />}
 			{modal && <LogOut setModal={setModal} logout={logout}
 				Delete={handleDelete} email={email} />}
 		</Shell>
 	)
 }
-export default ControlRoom
